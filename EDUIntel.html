@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduIntel | Education Intelligence</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f3f5f9;
+    color: #1e293b;
+}
+
+header {
+    background: #14243d;
+    color: white;
+    padding: 20px 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 {
+    color: #60a5fa;
+}
+
+header span {
+    font-size: 13px;
+    color: #cbd5e1;
+}
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
+
+.sidebar {
+    width: 220px;
+    background: #1e324f;
+    padding: 25px 15px;
+    color: white;
+}
+
+.sidebar a {
+    display: block;
+    color: #dbeafe;
+    padding: 13px;
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.sidebar a:hover {
+    background: #345477;
+}
+
+main {
+    flex: 1;
+    padding: 30px;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h1 {
+    margin-bottom: 8px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #0000000a;
+}
+
+.stat-card h2 {
+    color: #2563eb;
+    margin-top: 10px;
+}
+
+.search-area {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+input, select {
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    margin: 7px 5px 7px 0;
+}
+
+input {
+    width: 45%;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 11px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.institutions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    color: #1d4ed8;
+}
+
+.card p {
+    font-size: 14px;
+    margin: 8px 0;
+    color: #64748b;
+}
+
+.tag {
+    background: #dbeafe;
+    color: #1d4ed8;
+    padding: 5px 9px;
+    display: inline-block;
+    border-radius: 5px;
+    font-size: 12px;
+    margin: 8px 0;
+}
+
+#compare-section {
+    background: white;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+@media(max-width: 700px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    main {
+        padding: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>EduIntel</h2>
+    <span>Education Intelligence & Research Platform</span>
+</header>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <a onclick="showHome()">Dashboard</a>
+        <a onclick="focusSearch()">Global Search</a>
+        <a onclick="showCompare()">Compare Institutions</a>
+        <a onclick="showSources()">Research Sources</a>
+        <a onclick="showAbout()">About EduIntel</a>
+    </aside>
+
+    <main>
+
+        <div class="welcome">
+            <h1>Dashboard</h1>
+            <p>Discover and research educational institutions worldwide.</p>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                <p>Total Institutions</p>
+                <h2>120</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Countries</p>
+                <h2>25</h2>
+            </div>
+
+            <div class="stat-card">
+                <p>Programs Listed</p>
+                <h2>350</h2>
+            </div>
+
+        </div>
+
+        <section class="search-area" id="search-area">
+
+            <h3>Find an Institution</h3>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search institution..."
+                oninput="searchInstitutions()"
+            >
+
+            <select id="countryFilter" onchange="searchInstitutions()">
+                <option value="">All Countries</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="USA">USA</option>
+            </select>
+
+            <select id="typeFilter" onchange="searchInstitutions()">
+                <option value="">All Types</option>
+                <option value="University">University</option>
+                <option value="School">School</option>
+            </select>
+
+        </section>
+
+        <h2 style="margin-bottom:20px;">Institutions</h2>
+
+        <div class="institutions" id="institutionList">
+
+            <div class="card">
+                <h3>University of Bahrain</h3>
+                <span class="tag">University</span>
+                <p>Country: Bahrain</p>
+                <p>Programs: Computer Science, Engineering</p>
+                <p>Website: uob.edu.bh</p>
+                <button onclick="compareInstitution('University of Bahrain')">
+                    Add to Compare
+                </button>
+                <button onclick="viewDetails('University of Bahrain')">
+                    Details
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>Oxford University</h3>
+                <span class="tag">University</span>
+                <p>Country: United Kingdom</p>
+                <p>Programs: Medicine, Computer Science</p>
+                <p>Website: ox.ac.uk</p>
+                <button onclick="compareInstitution('Oxford University')">
+                    Add to Compare
+                </button>
+                <button onclick="viewDetails('Oxford University')">
+                    Details
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>Harvard University</h3>
+                <span class="tag">University</span>
+                <p>Country: USA</p>
+                <p>Programs: Law, Business, Medicine</p>
+                <p>Website: harvard.edu</p>
+                <button onclick="compareInstitution('Harvard University')">
+                    Add to Compare
+                </button>
+                <button onclick="viewDetails('Harvard University')">
+                    Details
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>NCST</h3>
+                <span class="tag">School</span>
+                <p>Country: Bahrain</p>
+                <p>Programs: General Education</p>
+                <p>Website: Example website</p>
+                <button onclick="compareInstitution('NCST')">
+                    Add to Compare
+                </button>
+                <button onclick="viewDetails('NCST')">
+                    Details
+                </button>
+            </div>
+
+        </div>
+
+        <section id="compare-section">
+            <h2>Institution Comparison</h2>
+            <div id="compareList"></div>
+            <button onclick="clearCompare()">Clear Comparison</button>
+        </section>
+
+        <section id="details-section"
+            style="display:none;background:white;padding:20px;margin-top:20px;border-radius:10px;">
+            <h2 id="detailsTitle"></h2>
+            <p id="detailsText"></p>
+            <p><b>Source:</b> Official institution website (demo)</p>
+            <button onclick="closeDetails()">Close</button>
+        </section>
+
+    </main>
+
+</div>
+
+<footer>
+    EduIntel © 2026 | Education Intelligence & Research Platform
+</footer>
+
+<script>
+
+let selectedInstitutions = [];
+
+function searchInstitutions() {
+
+    let search = document.getElementById("searchInput").value.toLowerCase();
+    let country = document.getElementById("countryFilter").value;
+    let type = document.getElementById("typeFilter").value;
+
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+
+        let name = card.querySelector("h3").innerText.toLowerCase();
+        let text = card.innerText;
+
+        let matchesSearch = name.includes(search);
+        let matchesCountry = !country || text.includes(country);
+        let matchesType = !type || text.includes(type);
+
+        card.style.display =
+            matchesSearch && matchesCountry && matchesType
+            ? "block" : "none";
+
+    });
+
+}
+
+function compareInstitution(name) {
+
+    if (selectedInstitutions.includes(name)) {
+        alert("Already added!");
+        return;
+    }
+
+    selectedInstitutions.push(name);
+    updateCompare();
+
+}
+
+function updateCompare() {
+
+    let section = document.getElementById("compare-section");
+    let list = document.getElementById("compareList");
+
+    section.style.display = "block";
+
+    list.innerHTML = "";
+
+    selectedInstitutions.forEach(name => {
+
+        let item = document.createElement("p");
+        item.innerText = "• " + name;
+        list.appendChild(item);
+
+    });
+
+}
+
+function clearCompare() {
+
+    selectedInstitutions = [];
+    updateCompare();
+
+    document.getElementById("compare-section").style.display = "none";
+
+}
+
+function viewDetails(name) {
+
+    document.getElementById("detailsTitle").innerText = name;
+
+    document.getElementById("detailsText").innerText =
+        "This is a demonstration profile. Real institutional information, admission requirements, programs and tuition fees can be added here.";
+
+    document.getElementById("details-section").style.display = "block";
+
+    document.getElementById("details-section").scrollIntoView();
+
+}
+
+function closeDetails() {
+    document.getElementById("details-section").style.display = "none";
+}
+
+function focusSearch() {
+    document.getElementById("search-area").scrollIntoView();
+    document.getElementById("searchInput").focus();
+}
+
+function showCompare() {
+    document.getElementById("compare-section").style.display = "block";
+    document.getElementById("compare-section").scrollIntoView();
+}
+
+function showHome() {
+    window.scrollTo(0, 0);
+}
+
+function showSources() {
+    alert("Research sources will be displayed here. This prototype uses demonstration data.");
+}
+
+function showAbout() {
+    alert("EduIntel is a platform for discovering, researching and comparing educational institutions.");
+}
+
+</script>
+
+</body>
+</html>
